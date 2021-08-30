@@ -24,7 +24,7 @@ LOG_FILE="${SCRATCH_ROOT}/logs/Cityscapes/${CHECKPOINTS_NAME}.log"
 echo "Logging to $LOG_FILE"
 mkdir -p `dirname $LOG_FILE`
 
-PRETRAINED_MODEL="${ASSET_ROOT}/resnet101-63fe2227.pth"
+PRETRAINED_MODEL="${ASSET_ROOT}/wide_resnet101_2-32ee1156.pth"
 MAX_ITERS=40000
 BATCH_SIZE=8
 BASE_LR=0.01

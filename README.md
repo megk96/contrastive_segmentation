@@ -60,6 +60,10 @@ _It seems that the DeepLab-V3 baseline does not produce the expected performance
 | HRNet-W48 | train     | val     | 40000      | 8          | 0.40          | 79.40 |
 
 
+### Scripts
+|```scripts/cityscapes/deeplab/run_r_101_d_8_fcn.sh ```|
+
+
 ## t-SNE Visualization
 
 * Pixel-wise Cross-Entropy Loss

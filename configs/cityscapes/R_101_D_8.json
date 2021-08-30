@@ -13,7 +13,7 @@
       "batch_size": 4,
       "data_transformer": {
         "size_mode": "fix_size",
-        "input_size": [1024, 1024],
+        "input_size": [1024, 512],
         "align_method": "only_pad",
         "pad_mode": "random"
       }
@@ -55,7 +55,7 @@
       },
       "random_crop":{
         "ratio": 1.0,
-        "crop_size": [1024, 1024],
+        "crop_size": [1024, 512],
         "method": "random",
         "allow_outside_center": false
       }

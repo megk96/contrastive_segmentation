@@ -61,7 +61,7 @@ _It seems that the DeepLab-V3 baseline does not produce the expected performance
 
 
 ### Scripts
-|```scripts/cityscapes/deeplab/run_r_101_d_8_fcn.sh ```|
+|```scripts/cityscapes/resnet/run_r_101_d_8_fcn.sh ```|
 
 
 ## t-SNE Visualization

@@ -9,7 +9,7 @@ ASSET_ROOT=$4
 SCRATCH_ROOT=$5
 
 
-DATA_DIR="${DATA_ROOT}/cityscapes"
+DATA_DIR="${DATA_ROOT}/cityscapes_preprocessed"
 SAVE_DIR="${SCRATCH_ROOT}/seg_results/cityscapes"
 BACKBONE="deepbase_resnet101_dilated8"
 
@@ -24,7 +24,7 @@ LOG_FILE="${SCRATCH_ROOT}/logs/Cityscapes/${CHECKPOINTS_NAME}.log"
 echo "Logging to $LOG_FILE"
 mkdir -p `dirname $LOG_FILE`
 
-PRETRAINED_MODEL="${ASSET_ROOT}/resnet101-63fe2227.pth"
+PRETRAINED_MODEL="${ASSET_ROOT}/resnet101-imagenet.pth"
 MAX_ITERS=40000
 BATCH_SIZE=8
 BASE_LR=0.01

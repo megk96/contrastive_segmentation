@@ -26,7 +26,7 @@ mkdir -p `dirname $LOG_FILE`
 
 PRETRAINED_MODEL="${ASSET_ROOT}/resnet101-imagenet.pth"
 MAX_ITERS=40000
-BATCH_SIZE=4
+BATCH_SIZE=8
 BASE_LR=0.01
 
 if [ "$1"x == "train"x ]; then

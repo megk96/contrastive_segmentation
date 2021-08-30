@@ -106,6 +106,8 @@ def collate(batch, trans_dict):
 
         pad_width = target_width - scaled_size[0]
         pad_height = target_height - scaled_size[1]
+        print(target_width)
+        print(scaled_size)
         assert pad_height >= 0 and pad_width >= 0
         if pad_width > 0 or pad_height > 0:
             assert trans_dict['align_method'] in ['only_pad', 'scale_and_pad']

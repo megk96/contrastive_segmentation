@@ -5,10 +5,11 @@ cd ../../../
 pwd
 
 DATA_ROOT=$3
-SCRATCH_ROOT=$4
-ASSET_ROOT=${DATA_ROOT}
+ASSET_ROOT=$4
+SCRATCH_ROOT=$5
 
-DATA_DIR="${DATA_ROOT}/Cityscapes"
+
+DATA_DIR="${DATA_ROOT}/cityscapes"
 SAVE_DIR="${SCRATCH_ROOT}/seg_results/cityscapes"
 BACKBONE="deepbase_resnet101_dilated8"
 
@@ -23,7 +24,7 @@ LOG_FILE="${SCRATCH_ROOT}/logs/Cityscapes/${CHECKPOINTS_NAME}.log"
 echo "Logging to $LOG_FILE"
 mkdir -p `dirname $LOG_FILE`
 
-PRETRAINED_MODEL="${ASSET_ROOT}/resnet101-imagenet.pth"
+PRETRAINED_MODEL="${ASSET_ROOT}/resnet101-63fe2227.pth"
 MAX_ITERS=40000
 BATCH_SIZE=8
 BASE_LR=0.01
@@ -62,7 +63,7 @@ elif [ "$1"x == "resume"x ]; then
                        --max_iters ${MAX_ITERS} \
                        --data_dir ${DATA_DIR} \
                        --loss_type ${LOSS_TYPE} \
-                       --gpu 0 1 2 3 \
+                       --gpu 0  \
                        --resume_continue y \
                        --resume ./checkpoints/cityscapes/${CHECKPOINTS_NAME}_latest.pth \
                        --checkpoints_name ${CHECKPOINTS_NAME} \
@@ -71,7 +72,7 @@ elif [ "$1"x == "resume"x ]; then
 elif [ "$1"x == "val"x ]; then
   python -u main.py --configs ${CONFIGS} --drop_last y \
                        --backbone ${BACKBONE} --model_name ${MODEL_NAME} --checkpoints_name ${CHECKPOINTS_NAME} \
-                       --phase test --gpu 0 1 2 3 --resume ${CHECKPOINTS_ROOT}/checkpoints/cityscapes/${CHECKPOINTS_NAME}_latest.pth \
+                       --phase test --gpu 0 --resume ${CHECKPOINTS_ROOT}/checkpoints/cityscapes/${CHECKPOINTS_NAME}_latest.pth \
                        --loss_type ${LOSS_TYPE} --test_dir ${DATA_DIR}/val/image \
                        --out_dir ${SAVE_DIR}${CHECKPOINTS_NAME}_val --data_dir ${DATA_DIR}
 

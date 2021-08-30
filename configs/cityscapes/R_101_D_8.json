@@ -10,30 +10,30 @@
       "workers": 8
     },
    "train": {
-      "batch_size": 4,
+      "batch_size": 2,
       "data_transformer": {
         "size_mode": "fix_size",
-        "input_size": [1000, 500],
+        "input_size": [2048, 512],
         "align_method": "only_pad",
         "pad_mode": "random"
       }
     },
     "val": {
-      "batch_size": 4,
+      "batch_size": 2,
       "mode": "ss_test",
       "data_transformer": {
         "size_mode": "fix_size",
-        "input_size": [1000, 500],
+        "input_size": [2048, 512],
         "align_method": "only_pad"
       }
     },
     "test": {
-      "batch_size": 4,
+      "batch_size": 2,
       "mode": "ss_test",
       "out_dir": "/msravcshare/dataset/seg_result/cityscapes",
       "data_transformer": {
         "size_mode": "fix_size",
-        "input_size": [1000, 500],
+        "input_size": [2048, 512],
         "align_method": "only_pad"
       }
     },
@@ -55,7 +55,7 @@
       },
       "random_crop":{
         "ratio": 1.0,
-        "crop_size": [1000, 500],
+        "crop_size": [2048, 512],
         "method": "random",
         "allow_outside_center": false
       }

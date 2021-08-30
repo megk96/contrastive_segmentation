@@ -13,5 +13,6 @@ visdom
 bs4
 html5lib
 ninja
+timm
 torch>=1.7.0
 torchvision>=0.6.0

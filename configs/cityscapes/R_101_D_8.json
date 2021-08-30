@@ -13,7 +13,7 @@
       "batch_size": 4,
       "data_transformer": {
         "size_mode": "fix_size",
-        "input_size": [1024, 512],
+        "input_size": [512, 256],
         "align_method": "only_pad",
         "pad_mode": "random"
       }
@@ -23,7 +23,7 @@
       "mode": "ss_test",
       "data_transformer": {
         "size_mode": "fix_size",
-        "input_size": [1024, 512],
+        "input_size": [512, 256],
         "align_method": "only_pad"
       }
     },
@@ -33,7 +33,7 @@
       "out_dir": "/msravcshare/dataset/seg_result/cityscapes",
       "data_transformer": {
         "size_mode": "fix_size",
-        "input_size": [1024, 512],
+        "input_size": [512, 256],
         "align_method": "only_pad"
       }
     },
@@ -55,7 +55,7 @@
       },
       "random_crop":{
         "ratio": 1.0,
-        "crop_size": [1024, 512],
+        "crop_size": [512, 256],
         "method": "random",
         "allow_outside_center": false
       }

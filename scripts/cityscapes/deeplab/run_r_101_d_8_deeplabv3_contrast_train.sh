@@ -23,8 +23,8 @@ echo "Logging to $LOG_FILE"
 mkdir -p `dirname $LOG_FILE`
 
 PRETRAINED_MODEL="${ASSET_ROOT}/resnet101-imagenet.pth"
-MAX_ITERS=40000
-BATCH_SIZE=8
+MAX_ITERS=60000
+BATCH_SIZE=2
 BASE_LR=0.01
 
 if [ "$1"x == "train"x ]; then

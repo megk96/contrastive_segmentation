@@ -1,9 +1,8 @@
 #!/usr/bin/env bash
 SCRIPTPATH="$( cd "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
-
-echo "$SCRIPTPATH"
-cd $SCRIPTPATH
+cd "$SCRIPTPATH"
 cd ../../../
+pwd
 
 DATA_ROOT=$3
 SCRATCH_ROOT=$4

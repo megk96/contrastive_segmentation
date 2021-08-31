@@ -45,6 +45,8 @@ from lib.models.nets.deeplab import DeepLabV3, DeepLabV3Contrast
 
 from lib.models.nets.ms_ocrnet import MscaleOCR
 
+from lib.models.nets.unet import UNet, UNet_CONTRAST
+
 SEG_MODEL_DICT = {
     # SegFix
     'segfix_hrnet': SegFix_HRNet,
@@ -79,6 +81,8 @@ SEG_MODEL_DICT = {
     'deeplab_v3_contrast': DeepLabV3Contrast,
     'ms_ocr': MscaleOCR,
     'hrnet_w48_ocr_b_ha': HRNet_W48_OCR_B_HA,
+    'unet': UNet,
+    'unet_contrast': UNet_CONTRAST,
 }
 
 

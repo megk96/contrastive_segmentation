@@ -17,6 +17,17 @@ import torch.nn.functional as F
 from lib.models.backbones.backbone_selector import BackboneSelector
 
 
+def initialize_weights(*models):
+    for model in models:
+        for module in model.modules():
+            if isinstance(module, nn.Conv2d) or isinstance(module, nn.Linear):
+                nn.init.kaiming_normal(module.weight)
+                if module.bias is not None:
+                    module.bias.data.zero_()
+            elif isinstance(module, nn.BatchNorm2d):
+                module.weight.data.fill_(1)
+                module.bias.data.zero_()
+
 class _EncoderBlock(nn.Module):
     def __init__(self, in_channels, out_channels, dropout=False):
         super(_EncoderBlock, self).__init__()
@@ -83,6 +94,7 @@ class UNet(nn.Module):
             nn.ReLU(inplace=True),
         )
         self.final = nn.Conv2d(64, self.num_classes, kernel_size=1)
+        initialize_weights(self)
 
     def forward(self, x_):
         x = self.backbone(x_)

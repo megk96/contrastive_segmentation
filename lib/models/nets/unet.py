@@ -66,7 +66,7 @@ class UNet(nn.Module):
         self.backbone = BackboneSelector(configer).get_backbone()
 
         # extra added layers
-        self.enc1 = _EncoderBlock(3, 64)
+        self.enc1 = _EncoderBlock(1024, 64)
         self.enc2 = _EncoderBlock(64, 128)
         self.enc3 = _EncoderBlock(128, 256)
         self.enc4 = _EncoderBlock(256, 512, dropout=True)

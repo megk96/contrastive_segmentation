@@ -15,7 +15,7 @@ CONFIGS="configs/cityscapes/R_101_D_8.json"
 CONFIGS_TEST="configs/cityscapes/R_101_D_8_TEST.json"
 
 MODEL_NAME="unet"
-LOSS_TYPE="fs_auxce_loss"
+LOSS_TYPE="fs_ce_loss"
 CHECKPOINTS_ROOT="${SCRATCH_ROOT}/Cityscapes/"
 CHECKPOINTS_NAME="${MODEL_NAME}_${BACKBONE}_"$2
 LOG_FILE="${SCRATCH_ROOT}/logs/Cityscapes/${CHECKPOINTS_NAME}.log"

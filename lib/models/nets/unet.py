@@ -77,7 +77,7 @@ class UNet(nn.Module):
         self.backbone = BackboneSelector(configer).get_backbone()
 
         # extra added layers
-        self.enc1 = _EncoderBlock(1024, 64)
+        self.enc1 = _EncoderBlock(3, 64)
         self.enc2 = _EncoderBlock(64, 128)
         self.enc3 = _EncoderBlock(128, 256)
         self.enc4 = _EncoderBlock(256, 512, dropout=True)
@@ -96,8 +96,8 @@ class UNet(nn.Module):
         self.final = nn.Conv2d(64, self.num_classes, kernel_size=1)
         initialize_weights(self)
 
-    def forward(self, x_):
-        x = self.backbone(x_)
+    def forward(self, x):
+        #x = self.backbone(x_)
         enc1 = self.enc1(x)
         enc2 = self.enc2(enc1)
         enc3 = self.enc3(enc2)
@@ -140,9 +140,10 @@ class UNet_CONTRAST(nn.Module):
             nn.ReLU(inplace=True),
         )
         self.final = nn.Conv2d(64, self.num_classes, kernel_size=1)
+        initialize_weights(self)
 
-    def forward(self, x_, with_embed=False, is_eval=False):
-        x = self.backbone(x_)
+    def forward(self, x, with_embed=False, is_eval=False):
+        # x = self.backbone(x_)
         enc1 = self.enc1(x)
         enc2 = self.enc2(enc1)
         enc3 = self.enc3(enc2)

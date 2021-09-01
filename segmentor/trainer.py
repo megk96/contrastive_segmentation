@@ -367,7 +367,7 @@ class Trainer(object):
 
     def train(self):
         # cudnn.benchmark = True
-        self.__val()
+        # self.__val()
         if self.configer.get('network', 'resume') is not None:
             if self.configer.get('network', 'resume_val'):
                 self.__val(data_loader=self.data_loader.get_valloader(dataset='val'))

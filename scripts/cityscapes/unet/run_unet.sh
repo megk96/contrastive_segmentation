@@ -68,7 +68,8 @@ elif [ "$1"x == "resume"x ]; then
                        --checkpoints_name ${CHECKPOINTS_NAME} \
                        --resume_continue y \
                        --resume ${CHECKPOINTS_ROOT}/checkpoints/cityscapes/${CHECKPOINTS_NAME}_latest.pth \
-                       --train_batch_size ${BATCH_SIZE} \
+                       --train_batch_size ${TRAIN_BATCH_SIZE} \
+                       --val_batch_size ${VAL_BATCH_SIZE} \
                        --distributed \
                         2>&1 | tee -a ${LOG_FILE}
 

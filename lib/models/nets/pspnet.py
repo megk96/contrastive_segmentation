@@ -152,11 +152,8 @@ class PSPNet_CONTRAST(nn.Module):
         x = self.layer3(x)
         center = self.layer4(x)
         x = self.ppm(center)
-        x = self.final(x)
-        out = F.upsample(x, x_size[2:], mode='bilinear')
-        print(x.shape)
-        print(out.shape)
+        final = self.final(x)
+        out = F.upsample(final, x_size[2:], mode='bilinear')
         embeddings = self.proj_head(center)
-        print(embeddings.shape)
-        return {'seg': out, 'embed': embeddings}
+        return {'seg': final, 'embed': embeddings}
 

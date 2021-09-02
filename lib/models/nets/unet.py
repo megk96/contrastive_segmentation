@@ -15,7 +15,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 from lib.models.backbones.backbone_selector import BackboneSelector
-
+from lib.models.modules.projection import ProjectionHead
 
 def initialize_weights(*models):
     for model in models:
@@ -76,6 +76,7 @@ class UNet(nn.Module):
         self.num_classes = self.configer.get('data', 'num_classes')
         self.backbone = BackboneSelector(configer).get_backbone()
 
+
         # extra added layers
         self.enc1 = _EncoderBlock(3, 64)
         self.enc2 = _EncoderBlock(64, 128)
@@ -123,6 +124,9 @@ class UNet_CONTRAST(nn.Module):
         self.backbone = BackboneSelector(configer).get_backbone()
         self.proj_dim = self.configer.get('contrast', 'proj_dim')
 
+
+        self.proj_head = ProjectionHead(dim_in=1024, proj_dim=self.proj_dim)
+
         self.enc1 = _EncoderBlock(3, 64)
         self.enc2 = _EncoderBlock(64, 128)
         self.enc3 = _EncoderBlock(128, 256)
@@ -155,5 +159,6 @@ class UNet_CONTRAST(nn.Module):
         dec1 = self.dec1(torch.cat([dec2, F.upsample(enc1, dec2.size()[2:], mode='bilinear')], 1))
         final = self.final(dec1)
         out = F.upsample(final, x.size()[2:], mode='bilinear')
-        return {'seg': out, 'embed': center}
+        embedding = self.proj_head(center)
+        return {'seg': out, 'embed': embedding}
 

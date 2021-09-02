@@ -113,7 +113,7 @@ class SegNet_CONTRAST(nn.Module):
         self.backbone = BackboneSelector(configer).get_backbone()
         self.proj_dim = self.configer.get('contrast', 'proj_dim')
 
-        self.proj_head = ProjectionHead(dim_in=2048, proj_dim=self.proj_dim)
+        self.proj_head = ProjectionHead(dim_in=512, proj_dim=self.proj_dim)
 
         vgg = models.vgg19_bn(pretrained=True)
         self.features = list(vgg.features.children())
@@ -150,7 +150,7 @@ class SegNet_CONTRAST(nn.Module):
         dec1 = self.dec1(torch.cat([enc1, dec2], 1))
 
         embeddings = self.proj_head(enc5)
-        
+
         print(dec1.shape)
         print(embeddings.shape)
 

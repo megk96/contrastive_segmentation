@@ -47,6 +47,10 @@ from lib.models.nets.ms_ocrnet import MscaleOCR
 
 from lib.models.nets.unet import UNet, UNet_CONTRAST
 
+from lib.models.nets.unet import PSPNet, PSPNet_CONTRAST
+
+from lib.models.nets.unet import SegNet, SegNet_CONTRAST
+
 SEG_MODEL_DICT = {
     # SegFix
     'segfix_hrnet': SegFix_HRNet,
@@ -83,6 +87,10 @@ SEG_MODEL_DICT = {
     'hrnet_w48_ocr_b_ha': HRNet_W48_OCR_B_HA,
     'unet': UNet,
     'unet_contrast': UNet_CONTRAST,
+    'pspnet': PSPNet,
+    'pspnet_contrast': PSPNet_CONTRAST,
+    'segnet': SegNet,
+    'segnet_contrast': SegNet_CONTRAST,
 }
 
 

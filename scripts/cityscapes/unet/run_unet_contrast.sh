@@ -14,7 +14,7 @@ BACKBONE="deepbase_resnet101_dilated8"
 CONFIGS="configs/cityscapes/R_101_D_8.json"
 CONFIGS_TEST="configs/cityscapes/R_101_D_8_TEST.json"
 
-MODEL_NAME="gcn_contrast"
+MODEL_NAME="duchdc_contrast"
 LOSS_TYPE="contrast_ce_loss"
 CHECKPOINTS_ROOT="${SCRATCH_ROOT}/Cityscapes/"
 CHECKPOINTS_NAME="${MODEL_NAME}_${BACKBONE}_"$2

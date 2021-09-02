@@ -51,7 +51,7 @@ from lib.models.nets.pspnet import PSPNet, PSPNet_CONTRAST
 
 from lib.models.nets.segnet import SegNet, SegNet_CONTRAST
 
-from lib.models.nets.gcn import GCN, GCN_CONTRAST
+from lib.models.nets.gcn import DUCHDC, DUCHDC_CONTRAST
 
 SEG_MODEL_DICT = {
     # SegFix
@@ -93,8 +93,8 @@ SEG_MODEL_DICT = {
     'pspnet_contrast': PSPNet_CONTRAST,
     'segnet': SegNet,
     'segnet_contrast': SegNet_CONTRAST,
-    'gcn': GCN,
-    'gcn_contrast': GCN_CONTRAST,
+    'duchdc': DUCHDC,
+    'duchdc_contrast': DUCHDC_CONTRAST,
 }
 
 

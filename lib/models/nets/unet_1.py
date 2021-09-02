@@ -207,6 +207,7 @@ class UNet_CONTRAST(nn.Module):
         layer2 = self.layer2(layer1)
         layer3 = self.layer3(layer2)
         layer4 = self.layer4(layer3)
+        embedding = self.proj_head(layer4)
 
         layer4 = self.layer4_1x1(layer4)
         x = self.upsample(layer4)
@@ -237,7 +238,6 @@ class UNet_CONTRAST(nn.Module):
 
 
         print(out.shape)
-        print(x.shape)
         embedding = self.proj_head(layer4)
         print(embedding.shape)
 

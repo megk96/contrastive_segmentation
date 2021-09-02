@@ -85,7 +85,7 @@ class SegNet(nn.Module):
         self.dec3 = _DecoderBlock(512, 128, 4)
         self.dec2 = _DecoderBlock(256, 64, 2)
         self.dec1 = _DecoderBlock(128, self.num_classes, 2)
-        initialize_weights(self.dec5, self.dec4, self.dec3, self.dec2, self.dec1)
+        initialize_weights(self)
 
     def forward(self, x):
         enc1 = self.enc1(x)
@@ -133,7 +133,7 @@ class SegNet_CONTRAST(nn.Module):
         self.dec3 = _DecoderBlock(512, 128, 4)
         self.dec2 = _DecoderBlock(256, 64, 2)
         self.dec1 = _DecoderBlock(128, self.num_classes, 2)
-        initialize_weights(self.dec5, self.dec4, self.dec3, self.dec2, self.dec1)
+        initialize_weights(self)
 
 
     def forward(self, x,with_embed=False, is_eval=False):

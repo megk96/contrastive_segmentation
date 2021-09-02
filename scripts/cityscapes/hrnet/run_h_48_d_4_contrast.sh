@@ -46,7 +46,6 @@ if [ "$1"x == "train"x ]; then
                        --pretrained ${PRETRAINED_MODEL} \
                        --train_batch_size ${TRAIN_BATCH_SIZE} \
                        --val_batch_size ${VAL_BATCH_SIZE} \
-                       --train_batch_size ${BATCH_SIZE} \
                        --distributed \
                        --base_lr ${BASE_LR} \
                        2>&1 | tee ${LOG_FILE}

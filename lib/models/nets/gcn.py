@@ -149,7 +149,7 @@ class GCN_CONTRAST(nn.Module):
         initialize_weights(self.gcm1, self.gcm2, self.gcm3, self.gcm4, self.brm1, self.brm2, self.brm3,
                            self.brm4, self.brm5, self.brm6, self.brm7, self.brm8, self.brm9)
 
-    def forward(self, x):
+    def forward(self, x, with_embed=False, is_eval=False):
         # if x: 512
 
         fm0 = self.layer0(x)  # 256

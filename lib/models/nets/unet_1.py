@@ -238,7 +238,6 @@ class UNet_CONTRAST(nn.Module):
 
 
         print(out.shape)
-        embedding = self.proj_head(layer4)
         print(embedding.shape)
 
         return {'seg': out, 'embed': embedding}

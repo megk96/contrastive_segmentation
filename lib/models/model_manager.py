@@ -47,9 +47,9 @@ from lib.models.nets.ms_ocrnet import MscaleOCR
 
 from lib.models.nets.unet import UNet, UNet_CONTRAST
 
-from lib.models.nets.unet import PSPNet, PSPNet_CONTRAST
+from lib.models.nets.pspnet import PSPNet, PSPNet_CONTRAST
 
-from lib.models.nets.unet import SegNet, SegNet_CONTRAST
+from lib.models.nets.segnet import SegNet, SegNet_CONTRAST
 
 SEG_MODEL_DICT = {
     # SegFix

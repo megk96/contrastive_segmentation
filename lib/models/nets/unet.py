@@ -125,7 +125,7 @@ class UNet_CONTRAST(nn.Module):
         self.proj_dim = self.configer.get('contrast', 'proj_dim')
 
 
-        self.proj_head = ProjectionHead(dim_in=512, proj_dim=self.proj_dim)
+        self.proj_head = ProjectionHead(dim_in=1024, proj_dim=self.proj_dim)
 
         self.enc1 = _EncoderBlock(3, 64)
         self.enc2 = _EncoderBlock(64, 128)
@@ -162,10 +162,9 @@ class UNet_CONTRAST(nn.Module):
 
         print(out.shape)
         print(final.shape)
-        print(x.shape)
-        embedding = self.proj_head(center)
-        print(embedding.shape)
-        print(self.proj_head(enc4).shape)
+        y = torch.cat([center, F.upsample(enc4, center.size()[2:], mode='bilinear')], 1)
+        embedding = self.proj_head(y)
+        print(self.proj_head(y).shape)
 
         return {'seg': out, 'embed': embedding}
 

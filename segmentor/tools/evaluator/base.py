@@ -28,7 +28,7 @@ class _BaseEvaluator:
     def update_score(self, *args, **kwargs):
         raise NotImplementedError
 
-    def print_scores(self, show_miou=True):
+    def print_scores(self, writer, epoch, show_miou=True):
         for key, rs in self.running_scores.items():
             Log.info('Result for {}'.format(key))
             if isinstance(rs, fscore_rslib.F1RunningScore):
@@ -47,13 +47,16 @@ class _BaseEvaluator:
             else:
                 if show_miou and hasattr(rs, 'get_mean_iou'):
                     Log.info('Mean IOU: {}\n'.format(rs.get_mean_iou()))
+                    writer.add_scalar("meanIOU", rs.get_mean_iou(), epoch)
                 Log.info('Pixel ACC: {}\n'.format(rs.get_pixel_acc()))
+                writer.add_scalar("pixelAcc", s.get_pixel_acc(), epoch)
 
                 if hasattr(rs, 'n_classes') and rs.n_classes == 2:
                     Log.info(
                         'F1 Score: {} Precision: {} Recall: {}\n'
                         .format(*rs.get_F1_score())
                     )
+
 
     def prepare_validaton(self):
         """

@@ -24,6 +24,8 @@ import torch.nn as nn
 import torch.nn.functional as F
 import torch.distributed as dist
 import torch.backends.cudnn as cudnn
+from torch.utils.tensorboard import SummaryWriter
+writer = SummaryWriter()
 
 from lib.utils.tools.average_meter import AverageMeter
 from lib.datasets.data_loader import DataLoader
@@ -237,6 +239,8 @@ class Trainer(object):
                     self.module_runner.get_lr(self.optimizer), batch_time=self.batch_time,
                     foward_time=self.foward_time, backward_time=self.backward_time, loss_time=self.loss_time,
                     data_time=self.data_time, loss=self.train_losses))
+
+                writer.add_scalar("loss/train", self.train_losses.val,  self.configer.get('epoch'))
                 self.batch_time.reset()
                 self.foward_time.reset()
                 self.backward_time.reset()
@@ -357,7 +361,7 @@ class Trainer(object):
                 'Test Time {batch_time.sum:.3f}s, ({batch_time.avg:.3f})\t'
                 'Loss {loss.avg:.8f}\n'.format(
                     batch_time=self.batch_time, loss=self.val_losses))
-            self.evaluator.print_scores()
+            self.evaluator.print_scores(writer, self.configer.get('epoch'))
 
         self.batch_time.reset()
         self.val_losses.reset()

@@ -20,7 +20,8 @@ from segmentor.tools.data_helper import DataHelper
 from segmentor.tools.evaluator import get_evaluator
 from segmentor.tools.module_runner import ModuleRunner
 from segmentor.tools.optim_scheduler import OptimScheduler
-
+from torch.utils.tensorboard import SummaryWriter
+writer = SummaryWriter()
 
 class Trainer(object):
     def __init__(self, configer):
@@ -281,6 +282,7 @@ class Trainer(object):
                     self.module_runner.get_lr(self.optimizer), batch_time=self.batch_time,
                     foward_time=self.foward_time, backward_time=self.backward_time, loss_time=self.loss_time,
                     data_time=self.data_time, loss=self.train_losses))
+                writer.add_scalar("loss/train", self.train_losses.val, self.configer.get('epoch'))
                 self.batch_time.reset()
                 self.foward_time.reset()
                 self.backward_time.reset()
@@ -382,6 +384,7 @@ class Trainer(object):
         self.evaluator.update_performance()
 
         self.configer.update(['val_loss'], self.val_losses.avg)
+        writer.add_scalar("loss/val", self.val_losses.avg, self.configer.get('epoch'))
         self.module_runner.save_net(self.seg_net, save_mode='performance', experiment=None)
         self.module_runner.save_net(self.seg_net, save_mode='val_loss', experiment=None)
         cudnn.benchmark = True
@@ -392,7 +395,7 @@ class Trainer(object):
                 'Test Time {batch_time.sum:.3f}s, ({batch_time.avg:.3f})\t'
                 'Loss {loss.avg:.8f}\n'.format(
                     batch_time=self.batch_time, loss=self.val_losses))
-            self.evaluator.print_scores()
+            self.evaluator.print_scores(writer, self.configer.get('epoch'))
 
         self.batch_time.reset()
         self.val_losses.reset()

@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 SCRIPTPATH="$( cd "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
-cd $SCRIPTPATH
+cd "$SCRIPTPATH"
 cd ../../../
 
 DATA_ROOT=$3
-SCRATCH_ROOT=$4
-ASSET_ROOT=${DATA_ROOT}
+ASSET_ROOT=$4
+SCRATCH_ROOT=$5
 
-DATA_DIR="${DATA_ROOT}/Cityscapes"
+DATA_DIR="${DATA_ROOT}/cityscapes_preprocessed"
 SAVE_DIR="${SCRATCH_ROOT}/Cityscapes/seg_results/"
 BACKBONE="hrnet48"
 

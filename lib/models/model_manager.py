@@ -45,7 +45,7 @@ from lib.models.nets.deeplab import DeepLabV3, DeepLabV3Contrast
 
 from lib.models.nets.ms_ocrnet import MscaleOCR
 
-from lib.models.nets.unet_1 import UNet, UNet_CONTRAST
+from lib.models.nets.unet import UNet, UNet_CONTRAST
 
 from lib.models.nets.pspnet import PSPNet, PSPNet_CONTRAST
 

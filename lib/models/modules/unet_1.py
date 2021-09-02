@@ -167,9 +167,9 @@ class UNet_CONTRAST(nn.Module):
         self.proj_dim = self.configer.get('contrast', 'proj_dim')
 
 
-        self.proj_head = ProjectionHead(dim_in=2048, proj_dim=self.proj_dim)
+        self.proj_head = ProjectionHead(dim_in=512, proj_dim=self.proj_dim)
 
-        self.base_model = models.resnet101(pretrained=True)
+        self.base_model = models.resnet18(pretrained=True)
 
         self.base_layers = list(self.base_model.children())
 

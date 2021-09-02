@@ -158,7 +158,7 @@ class UNet_CONTRAST(nn.Module):
         dec2 = self.dec2(torch.cat([dec3, F.upsample(enc2, dec3.size()[2:], mode='bilinear')], 1))
         dec1 = self.dec1(torch.cat([dec2, F.upsample(enc1, dec2.size()[2:], mode='bilinear')], 1))
         final = self.final(dec1)
-        out = F.upsample(final, x.size()[2:], mode='bilinear')
+        # out = F.upsample(final, x.size()[2:], mode='bilinear')
         embedding = self.proj_head(center)
-        return {'seg': out, 'embed': embedding}
+        return {'seg': final, 'embed': embedding}
 

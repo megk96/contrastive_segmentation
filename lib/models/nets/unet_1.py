@@ -201,6 +201,7 @@ class UNet_CONTRAST(nn.Module):
     def forward(self, input, with_embed=False, is_eval=False):
         x_original = self.conv_original_size0(input)
         x_original = self.conv_original_size1(x_original)
+        embedding = self.proj_head(x_original)
 
         layer0 = self.layer0(input)
         layer1 = self.layer1(layer0)
@@ -208,7 +209,6 @@ class UNet_CONTRAST(nn.Module):
         layer3 = self.layer3(layer2)
         layer4 = self.layer4(layer3)
 
-        embedding = self.proj_head(layer4)
 
         layer4 = self.layer4_1x1(layer4)
         x = self.upsample(layer4)
@@ -228,23 +228,15 @@ class UNet_CONTRAST(nn.Module):
         x = self.conv_up1(x)
 
         x = self.upsample(x)
-        print(x.shape)
         layer0 = self.layer0_1x1(layer0)
-        print(layer0.shape)
         x = torch.cat([x, layer0], dim=1)
-        print(x.shape)
 
         x = self.conv_up0(x)
-        print(x.shape)
         x = self.upsample(x)
         x = torch.cat([x, x_original], dim=1)
         x = self.conv_original_size2(x)
 
         out = self.conv_last(x)
-
-
-        print(out.shape)
-        print(embedding.shape)
 
         return {'seg': out, 'embed': embedding}
 

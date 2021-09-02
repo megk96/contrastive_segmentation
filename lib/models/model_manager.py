@@ -51,6 +51,8 @@ from lib.models.nets.pspnet import PSPNet, PSPNet_CONTRAST
 
 from lib.models.nets.segnet import SegNet, SegNet_CONTRAST
 
+from lib.models.nets.gcn import GCN, GCN_CONTRAST
+
 SEG_MODEL_DICT = {
     # SegFix
     'segfix_hrnet': SegFix_HRNet,
@@ -91,6 +93,8 @@ SEG_MODEL_DICT = {
     'pspnet_contrast': PSPNet_CONTRAST,
     'segnet': SegNet,
     'segnet_contrast': SegNet_CONTRAST,
+    'gcn': GCN,
+    'gcn_contrast': GCN_CONTRAST,
 }
 
 

@@ -14,8 +14,8 @@ BACKBONE="deepbase_resnet101_dilated8"
 CONFIGS="configs/cityscapes/R_101_D_8.json"
 CONFIGS_TEST="configs/cityscapes/R_101_D_8_TEST.json"
 
-MODEL_NAME="unet"
-LOSS_TYPE="fs_ce_loss"
+MODEL_NAME="gcn_contrast"
+LOSS_TYPE="contrast_ce_loss"
 CHECKPOINTS_ROOT="${SCRATCH_ROOT}/Cityscapes/"
 CHECKPOINTS_NAME="${MODEL_NAME}_${BACKBONE}_"$2
 LOG_FILE="${SCRATCH_ROOT}/logs/Cityscapes/${CHECKPOINTS_NAME}.log"
@@ -24,8 +24,8 @@ mkdir -p `dirname $LOG_FILE`
 
 PRETRAINED_MODEL="${ASSET_ROOT}/resnet101-imagenet.pth"
 MAX_ITERS=60000
-TRAIN_BATCH_SIZE=8
-VAL_BATCH_SIZE=2
+TRAIN_BATCH_SIZE=2
+VAL_BATCH_SIZE=1
 BASE_LR=0.01
 
 if [ "$1"x == "train"x ]; then

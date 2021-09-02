@@ -18,6 +18,7 @@ from lib.models.backbones.backbone_selector import BackboneSelector
 from lib.models.modules.projection import ProjectionHead
 from torchvision import models
 
+
 def initialize_weights(*models):
     for model in models:
         for module in model.modules():
@@ -28,6 +29,7 @@ def initialize_weights(*models):
             elif isinstance(module, nn.BatchNorm2d):
                 module.weight.data.fill_(1)
                 module.bias.data.zero_()
+
 
 class _EncoderBlock(nn.Module):
     def __init__(self, in_channels, out_channels, dropout=False):
@@ -65,6 +67,7 @@ class _DecoderBlock(nn.Module):
     def forward(self, x):
         return self.decode(x)
 
+
 def convrelu(in_channels, out_channels, kernel, padding):
     return nn.Sequential(
         nn.Conv2d(in_channels, out_channels, kernel, padding=padding),
@@ -81,7 +84,6 @@ class UNet(nn.Module):
         super(UNet, self).__init__()
         self.configer = configer
         self.num_classes = self.configer.get('data', 'num_classes')
-
 
         self.base_model = models.resnet101(pretrained=True)
 
@@ -111,8 +113,6 @@ class UNet(nn.Module):
 
         self.conv_last = nn.Conv2d(64, self.num_classes, 1)
         initialize_weights(self)
-
-
 
     def forward(self, input):
         x_original = self.conv_original_size0(input)
@@ -169,7 +169,6 @@ class UNet_CONTRAST(nn.Module):
         self.backbone = BackboneSelector(configer).get_backbone()
         self.proj_dim = self.configer.get('contrast', 'proj_dim')
 
-
         self.proj_head = ProjectionHead(dim_in=64, proj_dim=self.proj_dim)
 
         self.base_model = models.resnet18(pretrained=True)
@@ -210,7 +209,6 @@ class UNet_CONTRAST(nn.Module):
         layer2 = self.layer2(layer1)
         layer3 = self.layer3(layer2)
         layer4 = self.layer4(layer3)
-        embedding = self.proj_head(x_original)
 
         layer4 = self.layer4_1x1(layer4)
         x = self.upsample(layer4)
@@ -237,12 +235,9 @@ class UNet_CONTRAST(nn.Module):
         x = self.upsample(x)
         x = torch.cat([x, x_original], dim=1)
         x = self.conv_original_size2(x)
+        embedding = self.proj_head(x)
 
         out = self.conv_last(x)
-
-
-        print(out.shape)
-        print(embedding.shape)
 
         return {'seg': out, 'embed': embedding}
 

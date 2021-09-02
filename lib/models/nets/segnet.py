@@ -131,7 +131,7 @@ class SegNet_CONTRAST(nn.Module):
         initialize_weights(self.dec5, self.dec4, self.dec3, self.dec2, self.dec1)
 
 
-    def forward(self, x):
+    def forward(self, x,with_embed=False, is_eval=False):
         enc1 = self.enc1(x)
         enc2 = self.enc2(enc1)
         enc3 = self.enc3(enc2)

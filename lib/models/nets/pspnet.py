@@ -139,7 +139,7 @@ class PSPNet_CONTRAST(nn.Module):
 
         initialize_weights(self.ppm, self.final)
 
-    def forward(self, x):
+    def forward(self, x, with_embed=False, is_eval=False):
         x_size = x.size()
         x = self.layer0(x)
         x = self.layer1(x)

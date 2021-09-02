@@ -79,7 +79,7 @@ class DUCHDC(nn.Module):
             self.layer4[idx].conv2.dilation = (layer4_group_config[idx], layer4_group_config[idx])
             self.layer4[idx].conv2.padding = (layer4_group_config[idx], layer4_group_config[idx])
 
-        self.duc = _DenseUpsamplingConvModule(8, 2048, self.num_classes)
+        self.duc = _DenseUpsamplingConvModule(1, 2048, self.num_classes)
 
         initialize_weights(self)
 

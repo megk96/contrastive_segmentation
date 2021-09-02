@@ -135,7 +135,7 @@ class DUCHDC_CONTRAST(nn.Module):
         initialize_weights(self)
 
 
-    def forward(self, x):
+    def forward(self, x,  with_embed=False, is_eval=False):
         x = self.layer0(x)
         x = self.layer1(x)
         x = self.layer2(x)

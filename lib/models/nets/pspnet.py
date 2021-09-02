@@ -16,7 +16,7 @@ import torch.nn.functional as F
 from torchvision import models
 
 from lib.models.backbones.backbone_selector import BackboneSelector
-
+from lib.models.modules.projection import ProjectionHead
 
 def initialize_weights(*models):
     for model in models:
@@ -112,6 +112,11 @@ class PSPNet_CONTRAST(nn.Module):
         self.configer = configer
         self.num_classes = self.configer.get('data', 'num_classes')
         self.backbone = BackboneSelector(configer).get_backbone()
+        self.proj_dim = self.configer.get('contrast', 'proj_dim')
+
+
+        self.proj_head = ProjectionHead(dim_in=1024, proj_dim=self.proj_dim)
+
 
         resnet = models.resnet101(pretrained=True)
         self.layer0 = nn.Sequential(resnet.conv1, resnet.bn1, resnet.relu, resnet.maxpool)
@@ -149,5 +154,9 @@ class PSPNet_CONTRAST(nn.Module):
         x = self.ppm(center)
         x = self.final(x)
         out = F.upsample(x, x_size[2:], mode='bilinear')
-        return {'seg': out, 'embed': center}
+        print(x.shape)
+        print(out.shape)
+        embeddings = self.proj_head(center)
+        print(embeddings.shape)
+        return {'seg': out, 'embed': embeddings}
 

@@ -16,6 +16,7 @@ import torch.nn.functional as F
 from torchvision import models
 
 from lib.models.backbones.backbone_selector import BackboneSelector
+from lib.models.modules.projection import ProjectionHead
 
 
 def initialize_weights(*models):
@@ -110,13 +111,17 @@ class SegNet_CONTRAST(nn.Module):
         self.configer = configer
         self.num_classes = self.configer.get('data', 'num_classes')
         self.backbone = BackboneSelector(configer).get_backbone()
+        self.proj_dim = self.configer.get('contrast', 'proj_dim')
+
+        self.proj_head = ProjectionHead(dim_in=2048, proj_dim=self.proj_dim)
+
         vgg = models.vgg19_bn(pretrained=True)
-        features = list(vgg.features.children())
-        self.enc1 = nn.Sequential(*features[0:7])
-        self.enc2 = nn.Sequential(*features[7:14])
-        self.enc3 = nn.Sequential(*features[14:27])
-        self.enc4 = nn.Sequential(*features[27:40])
-        self.enc5 = nn.Sequential(*features[40:])
+        self.features = list(vgg.features.children())
+        self.enc1 = nn.Sequential(*self.features[0:7])
+        self.enc2 = nn.Sequential(*self.features[7:14])
+        self.enc3 = nn.Sequential(*self.features[14:27])
+        self.enc4 = nn.Sequential(*self.features[27:40])
+        self.enc5 = nn.Sequential(*self.features[40:])
 
         self.dec5 = nn.Sequential(
             *([nn.ConvTranspose2d(512, 512, kernel_size=2, stride=2)] +
@@ -143,5 +148,11 @@ class SegNet_CONTRAST(nn.Module):
         dec3 = self.dec3(torch.cat([enc3, dec4], 1))
         dec2 = self.dec2(torch.cat([enc2, dec3], 1))
         dec1 = self.dec1(torch.cat([enc1, dec2], 1))
-        return {'seg': dec1, 'embed': enc5}
+
+        embeddings = self.proj_head(enc5)
+        
+        print(dec1.shape)
+        print(embeddings.shape)
+
+        return {'seg': dec1, 'embed': embeddings}
 

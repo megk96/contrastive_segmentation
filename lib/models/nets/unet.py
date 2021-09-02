@@ -160,5 +160,7 @@ class UNet_CONTRAST(nn.Module):
         final = self.final(dec1)
         # out = F.upsample(final, x.size()[2:], mode='bilinear')
         embedding = self.proj_head(center)
+        print(final.shape)
+        print(embedding.shape)
         return {'seg': final, 'embed': embedding}
 

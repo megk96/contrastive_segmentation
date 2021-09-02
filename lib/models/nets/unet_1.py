@@ -211,7 +211,7 @@ class UNet_CONTRAST(nn.Module):
 
         layer4 = self.layer4_1x1(layer4)
         x = self.upsample(layer4)
-        embedding = self.proj_head(x)
+
         layer3 = self.layer3_1x1(layer3)
         x = torch.cat([x, layer3], dim=1)
         x = self.conv_up3(x)
@@ -237,7 +237,7 @@ class UNet_CONTRAST(nn.Module):
 
         out = self.conv_last(x)
 
-
+        embedding = self.proj_head(input)
         print(out.shape)
         print(embedding.shape)
 

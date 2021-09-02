@@ -49,7 +49,7 @@ from lib.models.nets.unet import UNet, UNet_CONTRAST
 
 from lib.models.nets.pspnet import PSPNet, PSPNet_CONTRAST
 
-from lib.models.nets.gcn import DUCHDC, DUCHDC_CONTRAST
+from lib.models.nets.duchdc import DUCHDC, DUCHDC_CONTRAST
 
 SEG_MODEL_DICT = {
     # SegFix

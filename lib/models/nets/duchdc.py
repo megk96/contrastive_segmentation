@@ -106,9 +106,9 @@ class DUCHDC_CONTRAST(nn.Module):
         self.proj_dim = self.configer.get('contrast', 'proj_dim')
 
 
-        self.proj_head = ProjectionHead(dim_in=1024, proj_dim=self.proj_dim)
+        self.proj_head = ProjectionHead(dim_in=2048, proj_dim=self.proj_dim)
 
-        resnet = models.resnet152(pretrained=True)
+        resnet = models.resnet101(pretrained=True)
         self.layer0 = nn.Sequential(resnet.conv1, resnet.bn1, resnet.relu, resnet.maxpool)
         self.layer1 = resnet.layer1
         self.layer2 = resnet.layer2
@@ -130,7 +130,7 @@ class DUCHDC_CONTRAST(nn.Module):
             self.layer4[idx].conv2.dilation = (layer4_group_config[idx], layer4_group_config[idx])
             self.layer4[idx].conv2.padding = (layer4_group_config[idx], layer4_group_config[idx])
 
-        self.duc = _DenseUpsamplingConvModule(8, 1024, self.num_classes)
+        self.duc = _DenseUpsamplingConvModule(8, 2048, self.num_classes)
 
         initialize_weights(self)
 

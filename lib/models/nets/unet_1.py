@@ -207,10 +207,11 @@ class UNet_CONTRAST(nn.Module):
         layer2 = self.layer2(layer1)
         layer3 = self.layer3(layer2)
         layer4 = self.layer4(layer3)
-        embedding = self.proj_head(layer4)
+
 
         layer4 = self.layer4_1x1(layer4)
         x = self.upsample(layer4)
+        embedding = self.proj_head(x)
         layer3 = self.layer3_1x1(layer3)
         x = torch.cat([x, layer3], dim=1)
         x = self.conv_up3(x)

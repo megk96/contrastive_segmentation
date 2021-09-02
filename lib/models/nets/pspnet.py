@@ -115,7 +115,7 @@ class PSPNet_CONTRAST(nn.Module):
         self.proj_dim = self.configer.get('contrast', 'proj_dim')
 
 
-        self.proj_head = ProjectionHead(dim_in=1024, proj_dim=self.proj_dim)
+        self.proj_head = ProjectionHead(dim_in=2048, proj_dim=self.proj_dim)
 
 
         resnet = models.resnet101(pretrained=True)

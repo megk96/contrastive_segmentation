@@ -24,7 +24,8 @@ mkdir -p `dirname $LOG_FILE`
 
 PRETRAINED_MODEL="${ASSET_ROOT}/hrnetv2_w48_imagenet_pretrained.pth"
 MAX_ITERS=40000
-BATCH_SIZE=8
+TRAIN_BATCH_SIZE=4
+VAL_BATCH_SIZE=2
 BASE_LR=0.01
 
 if [ "$1"x == "train"x ]; then
@@ -36,13 +37,15 @@ if [ "$1"x == "train"x ]; then
                        --log_to_file n \
                        --backbone ${BACKBONE} \
                        --model_name ${MODEL_NAME} \
-                       --gpu 0 1 2 3 \
+                       --gpu 0 \
                        --data_dir ${DATA_DIR} \
                        --loss_type ${LOSS_TYPE} \
                        --max_iters ${MAX_ITERS} \
                        --checkpoints_root ${CHECKPOINTS_ROOT} \
                        --checkpoints_name ${CHECKPOINTS_NAME} \
                        --pretrained ${PRETRAINED_MODEL} \
+                       --train_batch_size ${TRAIN_BATCH_SIZE} \
+                       --val_batch_size ${VAL_BATCH_SIZE} \
                        --train_batch_size ${BATCH_SIZE} \
                        --distributed \
                        --base_lr ${BASE_LR} \
@@ -61,7 +64,7 @@ elif [ "$1"x == "resume"x ]; then
                        --max_iters ${MAX_ITERS} \
                        --data_dir ${DATA_DIR} \
                        --loss_type ${LOSS_TYPE} \
-                       --gpu 0 1 2 3 \
+                       --gpu 0  \
                        --checkpoints_root ${CHECKPOINTS_ROOT} \
                        --checkpoints_name ${CHECKPOINTS_NAME} \
                        --resume_continue y \
@@ -74,7 +77,7 @@ elif [ "$1"x == "resume"x ]; then
 elif [ "$1"x == "val"x ]; then
   python -u main.py --configs ${CONFIGS} --drop_last y  --data_dir ${DATA_DIR} \
                        --backbone ${BACKBONE} --model_name ${MODEL_NAME} --checkpoints_name ${CHECKPOINTS_NAME} \
-                       --phase test --gpu 0 1 2 3 --resume ${CHECKPOINTS_ROOT}/checkpoints/cityscapes/${CHECKPOINTS_NAME}_latest.pth \
+                       --phase test --gpu 0  --resume ${CHECKPOINTS_ROOT}/checkpoints/cityscapes/${CHECKPOINTS_NAME}_latest.pth \
                        --loss_type ${LOSS_TYPE} --test_dir ${DATA_DIR}/val/image \
                        --out_dir ${SAVE_DIR}${CHECKPOINTS_NAME}_val_ms
 
@@ -103,14 +106,14 @@ elif [ "$1"x == "test"x ]; then
     echo "[single scale] test"
     python -u main.py --configs ${CONFIGS} --drop_last y --data_dir ${DATA_DIR} \
                          --backbone ${BACKBONE} --model_name ${MODEL_NAME} --checkpoints_name ${CHECKPOINTS_NAME} \
-                         --phase test --gpu 0 1 2 3 --resume ${CHECKPOINTS_ROOT}/checkpoints/cityscapes/${CHECKPOINTS_NAME}_latest.pth \
+                         --phase test --gpu 0 --resume ${CHECKPOINTS_ROOT}/checkpoints/cityscapes/${CHECKPOINTS_NAME}_latest.pth \
                          --test_dir ${DATA_DIR}/test --log_to_file n \
                          --out_dir ${SAVE_DIR}${CHECKPOINTS_NAME}_test_ss
   else
     echo "[multiple scale + flip] test"
     python -u main.py --configs ${CONFIGS_TEST} --drop_last y --data_dir ${DATA_DIR} \
                          --backbone ${BACKBONE} --model_name ${MODEL_NAME} --checkpoints_name ${CHECKPOINTS_NAME} \
-                         --phase test --gpu 0 1 2 3 --resume ${CHECKPOINTS_ROOT}/checkpoints/cityscapes/${CHECKPOINTS_NAME}_latest.pth \
+                         --phase test --gpu 0 --resume ${CHECKPOINTS_ROOT}/checkpoints/cityscapes/${CHECKPOINTS_NAME}_latest.pth \
                          --test_dir ${DATA_DIR}/test --log_to_file n \
                          --out_dir ${SAVE_DIR}${CHECKPOINTS_NAME}_test_ms
   fi

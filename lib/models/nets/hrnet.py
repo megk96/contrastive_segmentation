@@ -92,6 +92,8 @@ class HRNet_W48_CONTRAST(nn.Module):
         out = self.cls_head(feats)
 
         emb = self.proj_head(feats)
+        print(out.shape)
+        print(emb.shape)
         return {'seg': out, 'embed': emb}
 
 

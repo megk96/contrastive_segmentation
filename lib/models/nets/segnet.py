@@ -116,18 +116,18 @@ class SegNet_CONTRAST(nn.Module):
         self.proj_head = ProjectionHead(dim_in=512, proj_dim=self.proj_dim)
 
         vgg = models.vgg19_bn(pretrained=True)
-        self.features = list(vgg.features.children())
-        self.enc1 = nn.Sequential(*self.features[0:7])
-        self.enc2 = nn.Sequential(*self.features[7:14])
-        self.enc3 = nn.Sequential(*self.features[14:27])
-        self.enc4 = nn.Sequential(*self.features[27:40])
-        self.enc5 = nn.Sequential(*self.features[40:])
+        features = list(vgg.features.children())
+        self.enc1 = nn.Sequential(*features[0:7])
+        self.enc2 = nn.Sequential(*features[7:14])
+        self.enc3 = nn.Sequential(*features[14:27])
+        self.enc4 = nn.Sequential(*features[27:40])
+        self.enc5 = nn.Sequential(*features[40:])
 
         self.dec5 = nn.Sequential(
             *([nn.ConvTranspose2d(512, 512, kernel_size=2, stride=2)] +
-              [nn.Conv2d(512, 512, kernel_size=3, padding=1),
+              {nn.Conv2d(512, 512, kernel_size=3, padding=1),
                nn.BatchNorm2d(512),
-               nn.ReLU(inplace=True)] * 4)
+               nn.ReLU(inplace=True)} * 4)
         )
         self.dec4 = _DecoderBlock(1024, 256, 4)
         self.dec3 = _DecoderBlock(512, 128, 4)

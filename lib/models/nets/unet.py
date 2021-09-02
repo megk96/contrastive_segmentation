@@ -125,7 +125,7 @@ class UNet_CONTRAST(nn.Module):
         self.proj_dim = self.configer.get('contrast', 'proj_dim')
 
 
-        self.proj_head = ProjectionHead(dim_in=1024, proj_dim=self.proj_dim)
+        self.proj_head = ProjectionHead(dim_in=512, proj_dim=self.proj_dim)
 
         self.enc1 = _EncoderBlock(3, 64)
         self.enc2 = _EncoderBlock(64, 128)

@@ -122,7 +122,7 @@ class GCN_CONTRAST(nn.Module):
         self.backbone = BackboneSelector(configer).get_backbone()
         self.proj_dim = self.configer.get('contrast', 'proj_dim')
 
-        self.proj_head = ProjectionHead(dim_in=512, proj_dim=self.proj_dim)
+        self.proj_head = ProjectionHead(dim_in=2048, proj_dim=self.proj_dim)
 
         resnet = models.resnet152(pretrained=True)
         self.layer0 = nn.Sequential(resnet.conv1, resnet.bn1, resnet.relu)
@@ -162,7 +162,7 @@ class GCN_CONTRAST(nn.Module):
         print(fm3.shape)
         fm4 = self.layer4(fm3)  # 16
         print(fm4.shape)
-        embeddings = self.proj_head(fm4)
+
 
         gcfm1 = self.brm1(self.gcm1(fm4))  # 16
         print(gcfm1.shape)
@@ -183,6 +183,7 @@ class GCN_CONTRAST(nn.Module):
         print(fs4.shape)
         out = self.brm9(F.upsample_bilinear(fs4, self.input_size))  # 512
         print(out.shape)
+        embeddings = self.proj_head(fm4)
         print(embeddings.shape)
 
         return {'seg': out, 'embed': embeddings}

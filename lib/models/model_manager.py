@@ -49,8 +49,6 @@ from lib.models.nets.unet import UNet, UNet_CONTRAST
 
 from lib.models.nets.pspnet import PSPNet, PSPNet_CONTRAST
 
-from lib.models.nets.segnet import SegNet, SegNet_CONTRAST
-
 from lib.models.nets.gcn import DUCHDC, DUCHDC_CONTRAST
 
 SEG_MODEL_DICT = {
@@ -91,8 +89,6 @@ SEG_MODEL_DICT = {
     'unet_contrast': UNet_CONTRAST,
     'pspnet': PSPNet,
     'pspnet_contrast': PSPNet_CONTRAST,
-    'segnet': SegNet,
-    'segnet_contrast': SegNet_CONTRAST,
     'duchdc': DUCHDC,
     'duchdc_contrast': DUCHDC_CONTRAST,
 }

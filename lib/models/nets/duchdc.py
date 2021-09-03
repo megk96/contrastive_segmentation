@@ -136,19 +136,12 @@ class DUCHDC_CONTRAST(nn.Module):
 
 
     def forward(self, x,  with_embed=False, is_eval=False):
-        print(x.shape)
         x = self.layer0(x)
-        print(x.shape)
         x = self.layer1(x)
-        print(x.shape)
         x = self.layer2(x)
-        print(x.shape)
         x = self.layer3(x)
-        print(x.shape)
         features = self.layer4(x)
         out = self.duc(features)
         embeddings = self.proj_head(features)
-        print(out.shape)
-        print(embeddings.shape)
         return {'seg': out, 'embed': embeddings}
 

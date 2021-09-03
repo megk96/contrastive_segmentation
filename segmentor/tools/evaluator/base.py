@@ -49,7 +49,7 @@ class _BaseEvaluator:
                     Log.info('Mean IOU: {}\n'.format(rs.get_mean_iou()))
                     writer.add_scalar("meanIOU", rs.get_mean_iou(), epoch)
                 Log.info('Pixel ACC: {}\n'.format(rs.get_pixel_acc()))
-                writer.add_scalar("pixelAcc", s.get_pixel_acc(), epoch)
+                writer.add_scalar("pixelAcc", rs.get_pixel_acc(), epoch)
 
                 if hasattr(rs, 'n_classes') and rs.n_classes == 2:
                     Log.info(

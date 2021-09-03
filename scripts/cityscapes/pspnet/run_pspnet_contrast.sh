@@ -52,7 +52,7 @@ if [ "$1"x == "train"x ]; then
 
 
 elif [ "$1"x == "resume"x ]; then
-  python -u main.py --configs ${CONFIGS} \
+  python -u main_contrastive.py --configs ${CONFIGS} \
                        --drop_last y \
                        --phase train \
                        --gathered n \

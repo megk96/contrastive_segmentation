@@ -16,7 +16,7 @@ CONFIGS_TEST="configs/cityscapes/R_101_D_8_TEST.json"
 
 MODEL_NAME="pspnet"
 LOSS_TYPE="fs_ce_loss"
-CHECKPOINTS_ROOT="${SCRATCH_ROOT}/Cityscapes/"
+CHECKPOINTS_ROOT="${SCRATCH_ROOT}/Cityscapes"
 CHECKPOINTS_NAME="${MODEL_NAME}_${BACKBONE}_"$2
 LOG_FILE="${SCRATCH_ROOT}/logs/Cityscapes/${CHECKPOINTS_NAME}.log"
 echo "Logging to $LOG_FILE"
@@ -24,7 +24,7 @@ mkdir -p `dirname $LOG_FILE`
 
 PRETRAINED_MODEL="${ASSET_ROOT}/resnet101-imagenet.pth"
 MAX_ITERS=60000
-TRAIN_BATCH_SIZE=4
+TRAIN_BATCH_SIZE=2
 VAL_BATCH_SIZE=1
 BASE_LR=0.01
 
